@@ -1,20 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fmis_portal/Bloc/LoginBloc/login_bloc.dart';
 import 'package:fmis_portal/Bloc/LoginBloc/login_state.dart';
 import 'package:fmis_portal/Model/login_model.dart';
-import 'package:fmis_portal/Ui/Components/already_have_account.dart';
 import 'package:fmis_portal/Ui/Components/round_button.dart';
 import 'package:fmis_portal/Ui/Components/round_input_field.dart';
 import 'package:fmis_portal/Ui/Components/round_password_field.dart';
-import 'package:fmis_portal/Ui/SignupScreen/singup_screen.dart';
-
-import 'background.dart';
+import 'package:fmis_portal/Utils/constants.dart';
 
 class Body extends StatelessWidget {
-
-  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
@@ -23,48 +19,72 @@ class Body extends StatelessWidget {
     return BlocBuilder(
       bloc: LoginBloc(context),
       builder: (BuildContext context, LoginState state) {
-        return Background(
-          child: SingleChildScrollView(
+        return SingleChildScrollView(
+          child: Container(
+            color: kPrimaryColor,
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width,
+              maxHeight: MediaQuery.of(context).size.height,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "LOGIN",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 36.0,
+                      horizontal: 24.0,
+                    ),
+                  ),
                 ),
-                SizedBox(height: size.height * 0.03),
-                SvgPicture.asset(
-                  "assets/icons/login.svg",
-                  height: size.height * 0.35,
-                ),
-                SizedBox(height: size.height * 0.03),
-                RoundedInputField(
-                  hintText: "Your Email",
-                  controller: emailController,
-                  onChanged: (value) {},
-                ),
-                RoundedPasswordField(
-
-                  onChanged: (value) {},
-                ),
-                RoundedButton(
-                  text: "LOGIN",
-                  press: () {
-                    LoginBloc(context).login(LoginModel(emailController.text, passwordController.text));
-                  },
-                ),
-                SizedBox(height: size.height * 0.03),
-                AlreadyHaveAnAccountCheck(
-                  press: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return SignUpScreen();
-                        },
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
+                        )),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "LOGIN",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          RoundedInputField(
+                            icon: Icons.phone,
+                            maxLength: 8,
+                            type: TextInputType.phone,
+                            hintText: "Phone Number",
+                            controller: phoneController,
+                            onChanged: (value) {},
+                          ),
+                          RoundedPasswordField(
+                            onChanged: (value) {},
+                          ),
+                          SizedBox(
+                            height: size.height * 0.10,
+                          ),
+                          RoundedButton(
+                            text: "NEXT",
+                            press: () {
+                              LoginBloc(context).login(
+                                LoginModel(phoneController.text, '+855'),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
               ],
             ),

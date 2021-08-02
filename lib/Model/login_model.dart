@@ -4,10 +4,11 @@ part 'login_model.g.dart';
 
 @JsonSerializable()
 class LoginModel {
-  final String username;
-  final String password;
+  @JsonKey(name: 'country_code')
+  final String countryCode;
+  final String phone;
 
-  LoginModel(this.username, this.password);
+  LoginModel(this.phone, this.countryCode);
 
 
   factory LoginModel.fromJSON(Map<String, dynamic> json) =>

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fmis_portal/Model/login_model.dart';
+import 'package:fmis_portal/Model/login_res_body.dart';
 import 'package:fmis_portal/Model/user_model.dart';
 import 'package:fmis_portal/Utils/constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -13,15 +14,15 @@ abstract class ApiService {
 
   static ApiService create() {
     final dio = Dio();
-    dio.interceptors.add(PrettyDioLogger());
+    dio.interceptors.add(PrettyDioLogger(
+      requestBody: true,
+    ));
     return ApiService(dio);
   }
 
   @GET('')
   Future<List<UserModel>> getUser();
 
-  @GET('')
-  Future<UserModel> login(@Body() LoginModel login);
-
-
+  @POST('/users/login')
+  Future<LoginResBody> login(@Body() LoginModel login);
 }

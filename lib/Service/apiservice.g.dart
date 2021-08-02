@@ -8,7 +8,7 @@ part of 'apiservice.dart';
 
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://randomuser.me/api/';
+    baseUrl ??= 'https://chatitd.mef.gov.kh:7000/v1';
   }
 
   final Dio _dio;
@@ -33,18 +33,18 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<UserModel> login(login) async {
+  Future<LoginResBody> login(login) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(login.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<UserModel>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '',
+        _setStreamType<LoginResBody>(
+            Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/users/login',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = UserModel.fromJson(_result.data!);
+    final value = LoginResBody.fromJson(_result.data!);
     return value;
   }
 

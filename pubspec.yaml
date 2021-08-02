@@ -38,6 +38,8 @@ dependencies:
   equatable: ^2.0.3
   dio: ^4.0.0
   json_serializable: ^4.1.2
+  enum_to_string: ^2.0.1
+  prefs: ^3.3.0
 
 dev_dependencies:
   flutter_test:
