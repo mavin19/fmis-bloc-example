@@ -15,6 +15,8 @@ class LoginBloc extends Cubit<LoginState> {
   LoginBloc(this.context) : super(LoginState.initial());
 
   void login(LoginModel loginModel) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => OtpScreen()));
     try {
       var res = await ApiService.create().login(loginModel);
       emit(state.copyWith(status: LoginStatus.success));

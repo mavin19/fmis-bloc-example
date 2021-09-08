@@ -5,6 +5,7 @@ part 'login_model.g.dart';
 @JsonSerializable()
 class LoginModel {
   @JsonKey(name: 'country_code')
+  @JsonKey(name: 'phone')
   final String countryCode;
   final String phone;
 

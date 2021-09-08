@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fmis_portal/Ui/LoginScreen/login_screen.dart';
 import 'package:fmis_portal/Utils/constants.dart';
 
-import 'Ui/WelcomeScreen/welcome_screen.dart';
+import 'L10n/l10n.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +18,11 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: WelcomeScreen(),
+      supportedLocales: L10n.all,
+      // localizationsDelegates: [
+      //
+      // ],
+      home: LoginScreen(),
     );
   }
 }

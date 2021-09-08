@@ -19,77 +19,108 @@ class Body extends StatelessWidget {
     return BlocBuilder(
       bloc: LoginBloc(context),
       builder: (BuildContext context, LoginState state) {
-        return SingleChildScrollView(
-          child: Container(
+        return  Container(
             color: kPrimaryColor,
             constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width,
               maxHeight: MediaQuery.of(context).size.height,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: MediaQuery.of(context).size.height * .20),
                 Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 36.0,
-                      horizontal: 24.0,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
-                        )),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "LOGIN",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: size.height * 0.03),
-                          RoundedInputField(
-                            icon: Icons.phone,
-                            maxLength: 8,
-                            type: TextInputType.phone,
-                            hintText: "Phone Number",
-                            controller: phoneController,
-                            onChanged: (value) {},
-                          ),
-                          RoundedPasswordField(
-                            onChanged: (value) {},
-                          ),
-                          SizedBox(
-                            height: size.height * 0.10,
-                          ),
-                          RoundedButton(
-                            text: "NEXT",
-                            press: () {
-                              LoginBloc(context).login(
-                                LoginModel(phoneController.text, '+855'),
-                              );
-                            },
-                          ),
-                        ],
+                  child: Stack(
+                    alignment: AlignmentDirectional.topCenter,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40),
+                              )),
+                          child: Padding(
+                            padding: const EdgeInsets.only( top: 120.0),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "LOGIN",
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: size.height * 0.03),
+                                  Align(
+                                    alignment:Alignment.topLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 48.0, bottom: 10.0),
+                                      child: Text(
+                                        "Phone Number",
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ),
+                                  ),
+                                  RoundedInputField(
+                                    icon: Icons.phone,
+                                    maxLength: 8,
+                                    type: TextInputType.phone,
+                                    hintText: "Phone Number",
+                                    controller: phoneController,
+                                    onChanged: (value) {},
+                                  ),
+                                  Align(
+                                    alignment:Alignment.topLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 48.0, bottom: 10.0),
+                                      child: Text(
+                                        "Password",
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ),
+                                  ),
+                                  RoundedPasswordField(
+                                    onChanged: (value) {},
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.10,
+                                  ),
+                                  RoundedButton(
+                                    text: "NEXT",
+                                    press: () {
+                                      LoginBloc(context).login(
+                                        LoginModel(phoneController.text, '+855'),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(180),
+                        ),
+                        child: Image(
+                          image: AssetImage('assets/images/fmis_logo.png'),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-          ),
-        );
+          );
       },
     );
   }

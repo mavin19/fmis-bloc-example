@@ -1,0 +1,7 @@
+{
+    "language" : "English",
+    "@authentication": {
+        "login" : "Login",
+        "sign_up": "Sign Up"
+    }
+}
